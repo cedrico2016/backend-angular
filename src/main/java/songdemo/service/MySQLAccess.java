@@ -13,10 +13,21 @@ public class MySQLAccess {
 
     private MySQLAccess() {
     }
+    
+    private String dbHost = System.getenv("DBHOST");
 
-    private static final String URL = "jdbc:mysql://localhost:3306/songdb";
-    private static final String USERNAME = "songuser";
-    private static final String PASSWORD = "songpass";
+    private String dbPort = System.getenv("DBPORT");
+
+    private String dbName = System.getenv("DBNAME");
+
+    private String dbUser = System.getenv("DBUSER");
+
+    private String dbPassword = System.getenv("DBPASSWORD");
+
+    private static final String URL = "jdbc:mysql://" + dbHost + ":" + dbPort + "/" + dbName;
+
+    // private static final String USERNAME = "songuser";
+    // private static final String PASSWORD = "songpass";
 
     public Connection getConnection() {
         Connection connection = null;
@@ -29,7 +40,7 @@ public class MySQLAccess {
                 return null;
             }
 
-            connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+            connection = DriverManager.getConnection(URL, dbUser, dbPassword);
         } catch (SQLException e) {
             e.printStackTrace();
         }
